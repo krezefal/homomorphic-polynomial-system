@@ -1,7 +1,6 @@
 import sys
 import unittest
 import logging
-import numpy as np
 
 from cryptosystem import generate_abramov_keypair
 
