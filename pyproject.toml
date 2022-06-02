@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "abramov"
+name = "abramov_system"
 version = "0.1.0"
 description = "A fully homomorphic cryptosystem based on the ring of polynomials with rational coefficients."
 authors = ["Timofey Klimov <klimovtimofeyy@gmail.com>"]

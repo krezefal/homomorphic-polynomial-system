@@ -3,9 +3,9 @@ import unittest
 import logging
 import numpy as np
 
-from cryptosystem.utils import generate_obfuscating_multiplier
-from cryptosystem.keygen import generate_abramov_keypair
-from cryptosystem.vars import ROUND_ACCURACY
+from abramov_system.utils import generate_obfuscating_multiplier
+from abramov_system.keygen import generate_abramov_keypair
+from abramov_system.vars import ROUND_ACCURACY
 
 
 class TestUtils(unittest.TestCase):

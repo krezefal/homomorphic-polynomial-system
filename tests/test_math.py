@@ -2,7 +2,7 @@ import sys
 import unittest
 import logging
 
-from cryptosystem.keygen import generate_abramov_keypair
+from abramov_system.keygen import generate_abramov_keypair
 
 
 class TestMath(unittest.TestCase):
