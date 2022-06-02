@@ -3,7 +3,7 @@ import unittest
 import logging
 import numpy as np
 
-from utils import generate_obfuscating_multiplier
+from cryptosystem.utils import generate_obfuscating_multiplier
 from cryptosystem import generate_abramov_keypair
 from vars import ROUND_ACCURACY
 
