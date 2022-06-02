@@ -4,8 +4,8 @@ import logging
 import numpy as np
 
 from cryptosystem.utils import generate_obfuscating_multiplier
-from cryptosystem import generate_abramov_keypair
-from vars import ROUND_ACCURACY
+from cryptosystem.keygen import generate_abramov_keypair
+from cryptosystem.vars import ROUND_ACCURACY
 
 
 class TestUtils(unittest.TestCase):

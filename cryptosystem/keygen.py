@@ -2,8 +2,8 @@ from typing import Tuple
 import secrets
 import numpy as np
 
-from utils import generate_obfuscating_multiplier
-from vars import *
+from .utils import generate_obfuscating_multiplier
+from .vars import *
 
 
 class AbramovPrivateKey:

@@ -3,7 +3,7 @@ import unittest
 import logging
 import numpy as np
 
-from cryptosystem import generate_abramov_keypair
+from cryptosystem.keygen import generate_abramov_keypair
 
 
 class TestEncryption(unittest.TestCase):

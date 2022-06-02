@@ -1,7 +1,7 @@
 import secrets
 import numpy as np
 
-from vars import *
+from .vars import *
 
 
 def generate_obfuscating_multiplier(even_degree: int) -> np.poly1d:
