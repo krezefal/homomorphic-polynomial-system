@@ -10,10 +10,10 @@ class AbramovPrivateKey:
     def __init__(self, root: float):
         self._root = root
 
-    def decrypt(self, encrypted_number: np.poly1d) -> float:
+    def decrypt(self, encrypted_number: np.poly1d) -> int:
         decrypted_number = np.polyval(encrypted_number, self._root)
         rounded_decrypted_number = np.round(decrypted_number, ROUND_ACCURACY)
-        return float(rounded_decrypted_number)
+        return int(rounded_decrypted_number)
 
     def get_root(self):
         return self._root
