@@ -3,11 +3,12 @@ import unittest
 import logging
 
 from abramov_system.keygen import generate_abramov_keypair
+from abramov_system.utils import is_number, is_zero
 
 
 class TestMath(unittest.TestCase):
-    reference_base = 8
-    reference_degree = 4
+    reference_base = 9
+    reference_degree = 8
 
     @classmethod
     def setUpClass(cls):  # Keypair will be generated once for all these test cases
@@ -39,7 +40,7 @@ class TestMath(unittest.TestCase):
         self.log.debug(f"\nSubtraction result: {subtraction_result}\n")
         self.log.debug(f"\nDecrypted result: {dec_subtraction_result}\n")
 
-        self.assertEqual(dec_subtraction_result, subtraction_result)
+        self.assertEqual(subtraction_result, dec_subtraction_result)
 
     def test_multiplication(self):
         multiplication_result = self.test_number1 * self.test_number2
@@ -49,9 +50,12 @@ class TestMath(unittest.TestCase):
         self.log.debug(f"\nMultiplication result: {multiplication_result}\n")
         self.log.debug(f"\nDecrypted result: {dec_multiplication_result}\n")
 
-        self.assertEqual(dec_multiplication_result, multiplication_result)
+        self.assertEqual(multiplication_result, dec_multiplication_result)
 
     def test_division(self):
+        if is_zero(self.encrypted_number2):
+            raise ZeroDivisionError()
+
         division_result = self.test_number1 / self.test_number2
         enc_q, enc_r = self.encrypted_number1 / self.encrypted_number2
 
@@ -59,12 +63,18 @@ class TestMath(unittest.TestCase):
         dec_r = self.private_key.decrypt(enc_r)
         dec_num2 = self.private_key.decrypt(self.encrypted_number2)
 
+        if is_number(self.encrypted_number1) and is_number(self.encrypted_number2):
+            self.log.debug(f"\nDivision result: {division_result}\n")
+            self.log.debug(f"\nDecrypted result: {dec_q}\n")
+            self.assertEqual(round(division_result, 10), round(dec_q, 10))  # ROUNDING!
+            return
+
         dec_division_result = dec_q + dec_r / dec_num2
 
         self.log.debug(f"\nDivision result: {division_result}\n")
         self.log.debug(f"\nDecrypted result: {dec_division_result}\n")
 
-        self.assertEqual(round(dec_division_result, 10), round(division_result, 10))  # ROUNDING!
+        self.assertEqual(round(division_result, 10), round(dec_division_result, 10))
 
 
 if __name__ == '__main__':
