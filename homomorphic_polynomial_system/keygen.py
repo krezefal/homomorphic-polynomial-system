@@ -2,6 +2,7 @@ from typing import Tuple
 import secrets
 import numpy as np
 
+from .enc_num import EncryptedNumber
 from .utils import generate_obfuscating_multiplier
 from .vars import *
 
@@ -10,10 +11,9 @@ class AbramovPrivateKey:
     def __init__(self, root: float):
         self._root = root
 
-    def decrypt(self, encrypted_number: np.poly1d) -> float:
-        decrypted_number = np.polyval(encrypted_number, self._root)
-        rounded_decrypted_number = np.round(decrypted_number, ROUND_ACCURACY)
-        return float(rounded_decrypted_number)
+    def decrypt(self, encrypted_number: EncryptedNumber) -> float:
+        decrypted_number = np.polyval(encrypted_number.polynomial, self._root)
+        return float(decrypted_number)
 
     def get_root(self):
         return self._root
@@ -29,9 +29,10 @@ class AbramovPublicKey:
         polynomial_representation = np.poly1d([int(digit) for digit in str(in_new_numbering_system)])
         return polynomial_representation
 
-    def encrypt(self, number: int) -> np.poly1d:
+    def encrypt(self, number: int) -> EncryptedNumber:
         encoded_number = self.encode(number)
-        encrypted_number = np.polyval(encoded_number, self._key_polynomial)
+        encrypted_number_to_wrap = np.polyval(encoded_number, self._key_polynomial)
+        encrypted_number = EncryptedNumber(encrypted_number_to_wrap)
         return encrypted_number
 
     def get_base(self):
