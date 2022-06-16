@@ -3,9 +3,9 @@ import unittest
 import logging
 import numpy as np
 
-from abramov_system.utils import generate_obfuscating_multiplier
-from abramov_system.keygen import generate_abramov_keypair
-from abramov_system.vars import ROUND_ACCURACY
+from homomorphic_polynomial_system.utils import generate_obfuscating_multiplier
+from homomorphic_polynomial_system.keygen import generate_abramov_keypair
+from homomorphic_polynomial_system.vars import ROUND_TO_INT
 
 
 class TestUtils(unittest.TestCase):
@@ -18,18 +18,18 @@ class TestUtils(unittest.TestCase):
 
     def test_polynomial_generating_with_given_degree(self):
         self.log.debug(f"\nReference degree: {self.reference_degree}\n")
-        self.assertEqual(self.test_polynomial.order, self.reference_degree)
+        self.assertEqual(self.reference_degree, self.test_polynomial.order)
 
     def test_polynomial_creating_with_no_rational_roots(self):
         roots = self.test_polynomial.r
         self.log.debug(f"\nRoots of the testing polynomial:\n{roots}\n")
         for root in np.nditer(roots):
-            self.assertNotEqual(np.imag(root), 0)
+            self.assertNotEqual(0, np.imag(root))
 
     def test_polynomial_generating_with_zero_degree(self):
         zero_polynomial = generate_obfuscating_multiplier(0)
         self.log.debug(f"\nPolynomial with zero degree:\n{zero_polynomial}\n")
-        self.assertEqual(zero_polynomial.order, 0)
+        self.assertEqual(0, zero_polynomial.order)
 
 
 class TestKeypairAttr(unittest.TestCase):
@@ -50,7 +50,7 @@ class TestKeypairAttr(unittest.TestCase):
     def test_bases_equality(self):
         self.log.debug(f"\nBase (public key attr): {self.public_key.get_base()}\n")
         self.log.debug(f"\nReference base : {self.reference_base}\n")
-        self.assertEqual(self.public_key.get_base(), self.reference_base)
+        self.assertEqual(self.reference_base, self.public_key.get_base())
 
     # According to the theory, key polynomial
     # must have only 1 rational root
@@ -66,7 +66,7 @@ class TestKeypairAttr(unittest.TestCase):
             if np.imag(root) == 0:
                 amount_of_rational_roots += 1
 
-        self.assertEqual(amount_of_rational_roots, 1)
+        self.assertEqual(1, amount_of_rational_roots)
 
     # Degree of the key polynomial must be equal
     # to passed degree (or + 1 if it was set to even)
@@ -76,9 +76,9 @@ class TestKeypairAttr(unittest.TestCase):
         self.log.debug(f"\nReference degree: {self.reference_degree}\n")
 
         if self.reference_degree % 2 == 0:
-            self.assertEqual(key_polynomial.order, self.reference_degree + 1)
+            self.assertEqual(self.reference_degree + 1, key_polynomial.order)
         else:
-            self.assertEqual(key_polynomial.order, self.reference_degree)
+            self.assertEqual(self.reference_degree, key_polynomial.order)
 
     # Correctness of key polynomial is confirmed
     # when, after substituting its root into it,
@@ -89,7 +89,7 @@ class TestKeypairAttr(unittest.TestCase):
         self.log.debug(f"\nKey polynomial (public key attr):\n{key_polynomial}\n")
 
         substitution_result = np.polyval(key_polynomial, root)
-        rounded_result = np.round(substitution_result, ROUND_ACCURACY)
+        rounded_result = np.round(substitution_result, ROUND_TO_INT)
         self.log.debug(f"\nRounded substitution result: {rounded_result}\n")
 
         self.assertEqual(self.reference_base, rounded_result)
