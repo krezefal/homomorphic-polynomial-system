@@ -5,7 +5,7 @@ MAX_COEFFICIENT_VALUE = 5
 
 # outer
 ROUND_TO_REAL_NUMBERS = 10
-ROUND_TO_INT = 1
+ROUND_TO_INT = 0
 
 # recommended values for ~real cases
 MAX_POLYNOMIAL_DEGREE = 100000
