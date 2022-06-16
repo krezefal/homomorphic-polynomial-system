@@ -3,7 +3,7 @@ import unittest
 import logging
 import numpy as np
 
-from abramov_system.keygen import generate_abramov_keypair
+from homomorphic_polynomial_system.keygen import generate_abramov_keypair
 
 
 class TestEncryption(unittest.TestCase):
@@ -24,23 +24,23 @@ class TestEncryption(unittest.TestCase):
         self.log.debug(f"\nPolynomial for testing:\n{test_polynomial}\n")
         self.log.debug(f"\nReference polynomial:\n{reference_polynomial}\n")
 
-        self.assertEqual(test_polynomial, reference_polynomial)
+        self.assertEqual(reference_polynomial, test_polynomial)
 
     def test_encryption(self):
-        test_polynomial = self.public_key.encrypt(self.test_number)
+        encrypted_number = self.public_key.encrypt(self.test_number)
 
-        self.log.debug(f"\nEncrypted polynomial:\n{test_polynomial}\n")
+        self.log.debug(f"\nEncrypted number:\n{encrypted_number}\n")
 
         self.assertEqual("foo & bar", "foo & bar")
 
     def test_decryption(self):
-        test_polynomial = self.public_key.encrypt(self.test_number)
-        decrypted_test_number = self.private_key.decrypt(test_polynomial)
+        encrypted_number = self.public_key.encrypt(self.test_number)
+        decrypted_number = self.private_key.decrypt(encrypted_number)
 
         self.log.debug(f"\nTesting value:\n{self.test_number}\n")
-        self.log.debug(f"\nDecrypted value:\n{decrypted_test_number}\n")
+        self.log.debug(f"\nDecrypted value:\n{decrypted_number}\n")
 
-        self.assertEqual(self.test_number, decrypted_test_number)
+        self.assertEqual(self.test_number, decrypted_number)
 
 
 if __name__ == '__main__':
