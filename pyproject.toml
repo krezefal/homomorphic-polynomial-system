@@ -1,11 +1,13 @@
 [tool.poetry]
-name = "abramov_system"
-version = "0.1.2"
+name = "homomorphic_polynomial_system"
+version = "0.2.0"
 description = "A fully homomorphic cryptosystem based on the ring of polynomials with rational coefficients."
 authors = ["Timofey Klimov <klimovtimofeyy@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+numpy = "^1.22.4"
+matplotlib = "^3.5.2"
 
 [tool.poetry.dev-dependencies]
 
