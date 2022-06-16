@@ -30,3 +30,7 @@ def is_zero(polynomial: np.poly1d) -> bool:
         return True
     else:
         return False
+
+
+def get_last(polynomial: np.poly1d):
+    return polynomial[0]
