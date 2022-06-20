@@ -1,7 +1,7 @@
 # encryption configuration #
 
 # inner
-MAX_COEFFICIENT_VALUE = 5
+MAX_COEFFICIENT_VALUE = 10
 
 # outer
 ROUND_TO_REAL_NUMBERS = 10
