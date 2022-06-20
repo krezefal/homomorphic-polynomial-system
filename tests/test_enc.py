@@ -45,8 +45,8 @@ class TestEncryption(unittest.TestCase):
 
     def test_serialization(self):
         encrypted_number = self.public_key.encrypt(self.test_number)
-        serialized_obj = serialize(encrypted_number.polynomial)
-        deserialized_encrypted_number = EncryptedNumber(deserialize(serialized_obj))
+        serialized_obj = serialize(encrypted_number)
+        deserialized_encrypted_number = deserialize(serialized_obj)
 
         self.log.debug(f"\nEncrypted number:\n{encrypted_number}\n")
         self.log.debug(f"\nEncrypted number after serialization:\n{deserialized_encrypted_number}\n")
