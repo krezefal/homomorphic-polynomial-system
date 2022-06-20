@@ -3,6 +3,7 @@ import unittest
 import logging
 import numpy as np
 
+from homomorphic_polynomial_system.enc_num import serialize, deserialize, EncryptedNumber
 from homomorphic_polynomial_system.keygen import generate_abramov_keypair
 
 
@@ -41,6 +42,17 @@ class TestEncryption(unittest.TestCase):
         self.log.debug(f"\nDecrypted value:\n{decrypted_number}\n")
 
         self.assertEqual(self.test_number, decrypted_number)
+
+    def test_serialization(self):
+        encrypted_number = self.public_key.encrypt(self.test_number)
+        serialized_obj = serialize(encrypted_number.polynomial)
+        deserialized_encrypted_number = EncryptedNumber(deserialize(serialized_obj))
+
+        self.log.debug(f"\nEncrypted number:\n{encrypted_number}\n")
+        self.log.debug(f"\nEncrypted number after serialization:\n{deserialized_encrypted_number}\n")
+
+        self.assertEqual(type(encrypted_number), type(deserialized_encrypted_number))
+        self.assertEqual(encrypted_number.polynomial, deserialized_encrypted_number.polynomial)
 
 
 if __name__ == '__main__':
