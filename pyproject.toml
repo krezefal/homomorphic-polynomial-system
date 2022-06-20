@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "homomorphic_polynomial_system"
-version = "0.2.0"
+version = "0.2.1"
 description = "A fully homomorphic cryptosystem based on the ring of polynomials with rational coefficients."
 authors = ["Timofey Klimov <klimovtimofeyy@gmail.com>"]
 
