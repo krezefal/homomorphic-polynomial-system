@@ -5,6 +5,21 @@ import numpy as np
 from .utils import is_zero, is_number
 
 
+def serialize(polynomial: np.poly1d) -> str:
+    ndarray_representation = np.array([polynomial.coef])
+    bytes_representation = base64.b64encode(ndarray_representation)
+    serialized_obj = bytes_representation.decode()
+    return serialized_obj
+
+
+def deserialize(serialized_obj: str) -> np.poly1d:
+    bytes_representation = serialized_obj.encode()
+    ndarray_representation = np.frombuffer(base64.decodebytes(bytes_representation), dtype=np.float64)
+    ndarray_representation1d = np.squeeze(ndarray_representation)
+    polynomial = np.poly1d(ndarray_representation1d)
+    return polynomial
+
+
 class EncryptedNumber:
     def __init__(self, polynomial: np.poly1d):
         self.polynomial = polynomial
@@ -40,7 +55,3 @@ class EncryptedNumber:
         remains = EncryptedNumber(enc_r)
 
         return whole_part, remains, other
-
-
-
-
