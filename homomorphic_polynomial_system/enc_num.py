@@ -1,3 +1,5 @@
+import base64
+
 import numpy as np
 
 from .utils import is_zero, is_number
@@ -6,6 +8,10 @@ from .utils import is_zero, is_number
 class EncryptedNumber:
     def __init__(self, polynomial: np.poly1d):
         self.polynomial = polynomial
+
+    def __init__(self, serialized_string: str):
+        dec = np.frombuffer(base64.b64decode(serialized_string), dtype=np.uint8)
+        self.polynomial = np.poly1d(dec)
 
     def __str__(self):
         return self.polynomial.__str__()
@@ -38,3 +44,10 @@ class EncryptedNumber:
         remains = EncryptedNumber(enc_r)
 
         return whole_part, remains, other
+
+    def serialize(self):
+        enc = base64.b64encode(bytes(self.polynomial)).decode("ascii")
+        return enc
+
+
+
