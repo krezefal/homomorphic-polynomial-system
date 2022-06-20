@@ -10,7 +10,7 @@ class EncryptedNumber:
         self.polynomial = polynomial
 
     def __init__(self, serialized_string: str):
-        dec = np.frombuffer(base64.b64decode(serialized_string), dtype=np.uint8)
+        dec = np.frombuffer(base64.b64decode(serialized_string.encode("ascii")), dtype=np.uint8)
         self.polynomial = np.poly1d(dec)
 
     def __str__(self):
