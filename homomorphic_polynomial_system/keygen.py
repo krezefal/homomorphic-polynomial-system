@@ -43,8 +43,8 @@ class AbramovPublicKey:
 
 
 def generate_abramov_keypair(base: int, polynomial_degree: int) -> Tuple[AbramovPrivateKey, AbramovPublicKey]:
-    coef_at_first_deg = secrets.randbelow(MAX_COEFFICIENT_VALUE) * secrets.randbelow(MAX_COEFFICIENT_VALUE)
-    coef_at_zero_deg = secrets.randbelow(MAX_COEFFICIENT_VALUE) * secrets.randbelow(MAX_COEFFICIENT_VALUE)
+    coef_at_first_deg = secrets.randbelow(MAX_COEFFICIENT_VALUE) * secrets.randbelow(MAX_COEFFICIENT_VALUE) + 1
+    coef_at_zero_deg = secrets.randbelow(MAX_COEFFICIENT_VALUE) * secrets.randbelow(MAX_COEFFICIENT_VALUE) + 1
     key_polynomial = np.poly1d([coef_at_first_deg, coef_at_zero_deg])
 
     if polynomial_degree % 2 == 0:
