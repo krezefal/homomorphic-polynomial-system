@@ -30,7 +30,7 @@ class AbramovPublicKey:
         return polynomial_representation
 
     def encrypt(self, number: int) -> EncryptedNumber:
-        encoded_number = self.encode(number)
+        encoded_number = self.encode(int(number))
         encrypted_number_to_wrap = np.polyval(encoded_number, self._key_polynomial)
         encrypted_number = EncryptedNumber(encrypted_number_to_wrap)
         return encrypted_number
