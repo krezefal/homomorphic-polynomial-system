@@ -6,12 +6,8 @@ from .utils import is_zero, is_number
 
 
 class EncryptedNumber:
-    def __init__(self, polynomial):
-        if isinstance(polynomial, np.poly1d):
-            self.polynomial = polynomial
-        else:
-            dec = np.frombuffer(base64.b64decode(polynomial), dtype=np.uint8)
-            self.polynomial = np.poly1d(dec)
+    def __init__(self, polynomial: np.poly1d):
+        self.polynomial = polynomial
 
     def __str__(self):
         return self.polynomial.__str__()
@@ -45,9 +41,6 @@ class EncryptedNumber:
 
         return whole_part, remains, other
 
-    def serialize(self):
-        enc = base64.b64encode(bytes(self.polynomial)).decode("ascii")
-        return enc
 
 
 
